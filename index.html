@@ -1,0 +1,903 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>KU BET - Responsive UI</title>
+<style>
+:root{
+  --vh:100dvh;
+  --blue:#0b6ea8;
+  --blue2:#084f80;
+  --light:#eef6ff;
+  --line:#d7e5f1;
+  --orange:#ff9f31;
+  --text:#203040;
+  --muted:#6f7f90;
+  --danger:#e84e4e;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{
+  width:100%;height:100%;overflow:hidden;overscroll-behavior:none;background:#fff;
+  font-family:Arial,Helvetica,sans-serif;color:var(--text)
+}
+body{position:fixed;inset:0;height:var(--vh)}
+button,input,select{font:inherit}
+button{cursor:pointer}
+img{display:block;max-width:100%}
+#app{position:fixed;inset:0;width:100%;height:var(--vh);overflow:hidden;background:#fff}
+
+/* ===== DESKTOP ===== */
+.desktop{
+  display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden;background:#f4f5f7;
+}
+.topbar{
+  height:38px;background:linear-gradient(90deg,#137eae,#084f80);
+  color:#fff;display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;font-size:13px;flex:none
+}
+.auth-mini{display:flex;gap:8px}
+.auth-mini button{
+  border:0;color:#fff;padding:5px 14px;border-radius:3px;font-weight:700
+}
+.btn-register{background:#ff941f}
+.btn-login{background:#1699c8}
+
+.desktop-header{
+  height:62px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:35px;
+  padding:0 20px;
+  flex:none;
+  border-bottom:1px solid #eee
+}
+.logo-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:none;
+  text-decoration:none
+}
+.logo-img{height:33px;width:auto;object-fit:contain}
+.logo-fallback{
+  font-weight:900;font-size:31px;font-style:italic;letter-spacing:-2px;color:#2c9ed4
+}
+.logo-fallback b{color:#ff9a28}
+.desktop-nav{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:20px;
+  font-size:14px;
+  font-weight:700;
+  white-space:nowrap
+}
+.desktop-nav a{text-decoration:none;color:#242d35}
+.desktop-nav a:hover{color:#0b79b6}
+
+.hero{
+  position:relative;height:42vh;min-height:280px;max-height:410px;
+  background:
+    radial-gradient(circle at 70% 45%,rgba(255,169,45,.32),transparent 26%),
+    linear-gradient(110deg,#351104,#5f2107 50%,#2d1004);
+  color:#fff;overflow:hidden;flex:none
+}
+.hero::before,.hero::after{
+  content:"";position:absolute;width:420px;height:8px;background:rgba(255,173,38,.38);
+  transform:rotate(46deg);filter:blur(2px)
+}
+.hero::before{left:-120px;top:130px}.hero::after{right:-100px;top:100px}
+.hero-content{
+  position:absolute;left:18%;top:50%;transform:translateY(-50%);z-index:2
+}
+.hero-kicker{font-weight:900;font-style:italic;font-size:30px;text-shadow:0 3px 3px #000}
+.hero-title{font-size:56px;font-weight:900;font-style:italic;margin-top:10px}
+.hero-sub{font-size:45px;color:#ffd45e;font-weight:900;font-style:italic;margin-top:14px}
+.hero-btn{
+  margin-top:22px;border:0;border-radius:30px;background:linear-gradient(90deg,#ff6f16,#ff3d20);
+  color:#fff;font-weight:900;font-size:24px;padding:13px 34px
+}
+.hero-art{
+  position:absolute;right:10%;bottom:0;width:34%;height:100%;display:flex;align-items:flex-end;justify-content:center
+}
+.hero-banner-link{
+  position:absolute;inset:0;display:block;width:100%;height:100%;
+}
+.hero-banner-image{
+  width:100%;height:100%;object-fit:cover;object-position:center;
+  display:block;transition:opacity .28s ease;
+}
+.hero-banner-image.is-changing{opacity:.15}
+.hero-dots{
+  position:absolute;left:50%;bottom:12px;transform:translateX(-50%);
+  z-index:5;display:flex;gap:7px;pointer-events:none
+}
+.hero-dot{
+  width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);
+  box-shadow:0 1px 3px rgba(0,0,0,.35)
+}
+.hero-dot.active{background:#fff;transform:scale(1.25)}
+
+.hero-model{
+  width:76%;height:78%;border-radius:120px 120px 15px 15px;
+  background:linear-gradient(#f1d7c7,#f7f7f7 55%,#e6e6e6);
+  box-shadow:0 0 60px rgba(255,189,60,.35)
+}
+.notice{
+  height:47px;background:#0c0c0c;color:#fff;display:flex;align-items:center;
+  padding:0 24%;font-size:13px;gap:8px;flex:none;
+  cursor:default;
+}
+.notice, .notice *{
+  pointer-events:none !important;
+  cursor:default !important;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.desktop-cards{
+  flex:1;
+  min-height:0;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:cover;
+  display:grid;
+  grid-template-columns:repeat(5,minmax(130px,1fr));
+  gap:24px;
+  padding:24px 18%;
+  align-items:center
+}
+.desktop-card{text-align:center}
+.desktop-cards > .desktop-card > .art{
+  font-weight:900 !important;
+}
+.desktop-card .art{
+  height:110px;border-radius:14px;background:linear-gradient(145deg,#f4fbff,#d8e9f4);
+  display:flex;align-items:center;justify-content:center;font-size:52px;margin-bottom:12px
+}
+.desktop-footer{
+  height:44px;background:#252525;color:#ddd;display:flex;align-items:center;
+  justify-content:center;gap:20px;font-size:12px;flex:none
+}
+
+/* ===== MOBILE ===== */
+.mobile{
+  display:none;width:100%;height:100%;background:#fff;overflow:hidden;
+  flex-direction:column
+}
+.m-header{
+  height:36px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 7px;background:#fff;flex:none
+}
+.m-header .logo-img{height:26px}
+.m-auth{display:flex;gap:5px}
+.m-auth button{
+  border:0;border-radius:14px;color:#fff;font-weight:700;padding:4px 10px;font-size:12px
+}
+.m-banner{
+  margin:0 7px;height:145px;border-radius:0;
+  background:linear-gradient(120deg,#3e64a8,#613c99 58%,#a952a0);
+  color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;
+  font-weight:900;font-size:21px;line-height:1.25;position:relative;overflow:hidden;flex:none
+}
+.m-banner span{color:#ffef51}
+.m-banner small{display:block;margin-top:9px;font-size:12px;color:#fff}
+.m-content{
+  flex:1;min-height:0;display:flex;padding:7px 7px 5px;gap:7px;overflow:hidden
+}
+.side-menu{
+  width:64px;display:flex;flex-direction:column;gap:7px;flex:none;min-height:0
+}
+.side-item{
+  flex:1;min-height:0;border:0;border-radius:6px;background:#eef6ff;color:#294862;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-size:9px;font-weight:700;gap:5px
+}
+.side-item .ico{font-size:19px}
+.side-item.active{border:1px solid #228be6;background:#fff}
+.game-area{
+  flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr .78fr;
+  gap:7px;min-width:0;min-height:0
+}
+.game-card{
+  position:relative;overflow:hidden;border-radius:9px;background:linear-gradient(150deg,#eef7ff,#d9e9f6);
+  padding:9px;color:#42566b;font-weight:800
+}
+.game-card .ku{font-size:31px;color:#299ed5;font-style:italic;margin-top:5px}
+.game-card .visual{
+  position:absolute;right:-8px;bottom:-3px;width:80%;height:62%;
+  background:linear-gradient(145deg,#8dc4ef,#fff);
+  border-radius:50% 0 0 0;opacity:.9
+}
+.game-card.promo{background:linear-gradient(145deg,#fff5db,#ffd1c6)}
+.game-card.promo .visual{background:linear-gradient(#ffdc8e,#ff927f)}
+.small-stack{
+  display:grid;grid-template-rows:1fr 1fr;gap:7px
+}
+.small-card{
+  border-radius:9px;background:#ece9ff;display:flex;align-items:center;
+  justify-content:space-between;padding:0 14px;font-weight:800;color:#5d5c73
+}
+.bottom-nav{
+  height:54px;border-top:1px solid #ddd;background:#fff;display:grid;
+  grid-template-columns:repeat(5,1fr);flex:none;padding-bottom:env(safe-area-inset-bottom)
+}
+.bottom-nav button{
+  border:0;background:#fff;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;font-size:11px;gap:2px
+}
+.bottom-nav .ico{font-size:20px}
+.bottom-nav .money .ico{
+  width:42px;height:42px;border-radius:50%;background:transparent;color:#fff;
+  display:flex;align-items:center;justify-content:center;margin-top:-13px;font-size:0;
+  overflow:hidden;
+}
+.bottom-nav .money .ico img{
+  width:42px;height:42px;display:block;object-fit:contain;border-radius:50%;
+}
+
+/* ===== MODALS ===== */
+.modal{
+  position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.58);
+  display:none;align-items:center;justify-content:center;padding:16px
+}
+.modal.show{display:flex}
+.modal-box{
+  width:min(420px,94vw);background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 18px 60px rgba(0,0,0,.3)
+}
+.modal-head{
+  background:linear-gradient(90deg,#0d78b4,#095a91);color:#fff;
+  display:flex;justify-content:space-between;align-items:center;padding:14px 16px;font-weight:800
+}
+.close{border:0;background:transparent;color:#fff;font-size:24px}
+.modal-body{padding:16px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12px;color:#68798a;margin-bottom:5px;font-weight:700}
+.field input,.field select{
+  width:100%;height:42px;border:1px solid #ccd8e3;border-radius:8px;padding:0 11px;outline:none
+}
+.phone-wrap{
+  display:flex;width:100%;height:42px;border:1px solid #ccd8e3;border-radius:8px;
+  overflow:hidden;background:#fff
+}
+.phone-prefix{
+  flex:none;display:flex;align-items:center;gap:6px;padding:0 11px;
+  background:#f4f7fa;border-right:1px solid #ccd8e3;font-weight:700;color:#263746
+}
+.phone-wrap input{
+  flex:1;min-width:0;height:100%;border:0!important;border-radius:0!important;
+  padding:0 11px;outline:none
+}
+.primary{
+  width:100%;height:43px;border:0;border-radius:8px;
+  background:linear-gradient(90deg,#ff9b2f,#ff6a1d);color:#fff;font-weight:800
+}
+.login-tools{
+  display:flex;justify-content:flex-end;align-items:center;margin:-2px 0 12px
+}
+.forgot-link{
+  border:0;background:transparent;color:#0b78b3;font-weight:700;
+  font-size:13px;padding:2px 0;text-decoration:none;cursor:pointer
+}
+.forgot-link:hover{text-decoration:underline}
+.help-text{
+  font-size:12px;color:#6d7d8d;line-height:1.45;margin:-3px 0 12px
+}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.tabs button{
+  height:38px;border:1px solid #0b78b3;border-radius:8px;background:#fff;color:#0b78b3;font-weight:800
+}
+.tabs button.active{background:#0b78b3;color:#fff}
+.money-quick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 14px}
+.money-quick button{height:36px;border:1px solid #d1dce7;background:#f6f9fc;border-radius:7px}
+
+/* ===== responsive ===== */
+@media(max-width:768px) and (orientation:portrait){
+  .desktop{display:none}
+  .mobile{display:flex}
+}
+@media(min-width:769px){
+  .desktop{display:flex}
+  .mobile{display:none}
+}
+@media(max-width:1000px) and (orientation:landscape){
+  .desktop{display:flex}
+  .mobile{display:none}
+}
+
+/* Chữ tiêu đề bên dưới các desktop-card: đậm + trắng */
+#app > div.desktop > section.desktop-cards > div.desktop-card > div:nth-child(2){
+  font-weight:900 !important;
+  color:#fff !important;
+}
+
+
+/* FIX FONT TIẾNG VIỆT: dấu không bị nghiêng khi in đậm */
+#app > div.desktop > section.desktop-cards > div.desktop-card > div:nth-child(2),
+#app > div.desktop > section.desktop-cards > div.desktop-card > div.art{
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
+  font-weight: 700 !important;
+  font-style: normal !important;
+  font-synthesis: none !important;
+  font-variant: normal !important;
+  text-decoration: none !important;
+  transform: none;
+}
+#app > div.desktop > section.desktop-cards > div.desktop-card > div:nth-child(2){
+  color:#fff !important;
+}
+
+/* FIX FONT TIẾNG VIỆT MOBILE: không nghiêng chữ có dấu */
+#app > div.mobile > main > section > a:nth-child(1) > div:nth-child(1),
+#app > div.mobile > main > section > a:nth-child(1) > div:nth-child(1) > sup,
+#app > div.mobile > main > section > a:nth-child(2) > div:nth-child(1),
+#app > div.mobile > main > section > a:nth-child(3) > div:nth-child(1),
+#app > div.mobile > main > section > a:nth-child(4) > div:nth-child(1),
+#app > div.mobile > main > section > a.game-card.promo > div:nth-child(2),
+#app > div.mobile > main > section > div > a:nth-child(1) > span,
+#app > div.mobile > main > section > div > a:nth-child(2) > span {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
+  font-style: normal !important;
+  font-weight: 800 !important;
+  font-synthesis: none !important;
+  font-variant: normal !important;
+  letter-spacing: normal !important;
+  transform: none !important;
+}
+
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ================= DESKTOP ================= -->
+  <div class="desktop">
+    <div class="topbar">
+      <div id="desktopClock">--:-- --:--</div>
+      <div class="auth-mini">
+        <button class="btn-register" data-open="registerModal">Đăng ký +</button>
+        <button class="btn-login" data-open="loginModal">Đăng nhập</button>
+      </div>
+    </div>
+
+    <header class="desktop-header">
+      <!-- ĐỔI ĐƯỜNG DẪN LOGO Ở src -->
+      <a class="logo-link" href="" aria-label="Trang chủ">
+        <!-- LOGO CÔNG KHAI ĐỂ TEST: sửa trực tiếp src tại đây -->
+        <!-- ===== LINK ẢNH LOGO: DÁN LINK CỦA BẠN VÀO src ===== -->
+        <img class="logo-img"
+             id="desktopLogo"
+             src="https://tuancon.store/logosabet.png"
+             alt="Logo">
+      </a>
+
+      <nav class="desktop-nav">
+        <a href="#hot">🔥 KU siêu HOT</a>
+        <a href="thethao.html">THỂ THAO</a>
+        <a href="casino.html">LIVE CASINO</a>
+        <a href="games.html">GAMES</a>
+        <a href="xoso.html">XỔ SỐ</a>
+        <a href="daga.html">ĐÁ GÀ</a>
+        <a href="banca.html">BẮN CÁ</a>
+        <a href="doikhang.html">ĐỐI KHÁNG</a>
+        <a href="#uudai" style="color:#8c37d9">ƯU ĐÃI</a>
+        <a href="#app">📱 Tải APP</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="heroSlider" aria-label="Banner">
+      <a id="heroBannerLink" class="hero-banner-link" href="#" aria-label="Mở banner">
+        <img id="heroBannerImage" class="hero-banner-image" src="" alt="Banner">
+      </a>
+      <div class="hero-dots" id="heroDots" aria-hidden="true"></div>
+    </section>
+
+    <div class="notice" aria-label="Thông báo">
+      🔊 <span>Thông báo</span> |
+      <b>Không truy cập vào link lạ và thường xuyên đổi mật khẩu để đảm bảo an toàn tài khoản.</b>
+    </div>
+
+    <section class="desktop-cards"
+             style="background-image:url('https://cdnv2.tgdd.vn/mwg-static/common/News/1586975/hinh-nen-may-tinh-4k-dep%20%2869%29.jpg');">
+      <div class="desktop-card"><div class="art">🎁</div><div>Quay thưởng tuần trăm tỷ</div></div>
+      <div class="desktop-card"><div class="art">🎤</div><div>COOL-IN LIVE</div></div>
+      <div class="desktop-card"><div class="art">⚽</div><div>Đối tác LaLiga</div></div>
+      <div class="desktop-card"><div class="art">🎞️</div><div>Phim ảnh miễn phí</div></div>
+      <div class="desktop-card"><div class="art">📸</div><div>Hậu trường hoạt động</div></div>
+    </section>
+
+    <footer class="desktop-footer">
+      <span>Giới thiệu</span><span>|</span><span>Trợ giúp</span><span>|</span>
+      <span>Điều khoản</span><span>|</span><span>Forum</span><span>|</span><span>Hỗ trợ</span>
+    </footer>
+  </div>
+
+  <!-- ================= MOBILE ================= -->
+  <div class="mobile">
+    <header class="m-header">
+      <a class="logo-link" href="">
+        <img class="logo-img js-logo"
+             src="https://tuancon.store/logosabet.png"
+             data-fallback="true"
+             alt="KUBET">
+        <div class="logo-fallback" hidden style="font-size:23px"><b>KU</b>BET</div>
+      </a>
+      <div class="m-auth">
+        <button class="btn-register" data-open="registerModal">⊕ Đăng ký</button>
+        <button class="btn-login" data-open="loginModal">➜ Đăng nhập</button>
+      </div>
+    </header>
+
+    <section class="m-banner">
+      <div>
+        ⚠️ <span>Cảnh giác web giả</span>
+        <small>Giữ email nhận link trang chủ</small>
+        <small style="background:#ff9f22;padding:7px 12px;border-radius:18px;display:inline-block">Nhấn để lấy đường link</small>
+      </div>
+    </section>
+
+    <main class="m-content">
+      <aside class="side-menu">
+        <button class="side-item active"><span class="ico">🔥</span>HOT</button>
+        <button class="side-item"><span class="ico">♠</span>LIVE<br>CASINO</button>
+        <button class="side-item"><span class="ico">⑧</span>XỔ SỐ</button>
+        <button class="side-item"><span class="ico">⚽</span>THỂ THAO</button>
+        <button class="side-item"><span class="ico">🪽</span>GAMES</button>
+        <button class="side-item"><span class="ico">◈</span>ĐỐI KHÁNG</button>
+        <button class="side-item"><span class="ico">🐟</span>BẮN CÁ</button>
+        <button class="side-item"><span class="ico">🐓</span>ĐÁ GÀ</button>
+      </aside>
+
+      <section class="game-area">
+        <a class="game-card" href="casino.html" style="text-decoration:none;color:inherit">
+          <div>SA ASINO <sup style="color:#e24">Jackpot</sup></div>
+          <div class="ku"><img src="assets/images/ku.png" alt="KU"></div><div class="visual"></div>
+        </a>
+
+        <a class="game-card" href="xoso.html" style="text-decoration:none;color:inherit">
+          <div>SA XỔ SỐ</div>
+          <div class="ku"><img src="assets/images/ku.png" alt="KU"></div><div class="visual"></div>
+        </a>
+
+        <a class="game-card" href="thethao.html" style="text-decoration:none;color:inherit">
+          <div>SA THỂ THAO</div>
+          <div class="ku"><img src="assets/images/ku.png" alt="KU"></div><div class="visual"></div>
+        </a>
+
+        <a class="game-card" href="games.html" style="text-decoration:none;color:inherit">
+          <div>SA GAMES</div>
+          <div class="ku"><img src="assets/images/ku.png" alt="KU"></div><div class="visual"></div>
+        </a>
+
+        <a class="game-card promo" href="#uudai" style="text-decoration:none;color:inherit">
+          <div>🎁</div>
+          <div style="margin-top:8px">Quay thưởng tuần trăm tỷ</div>
+          <div class="visual"></div>
+        </a>
+
+        <div class="small-stack">
+          <a class="small-card" href="phimanh.html" style="text-decoration:none;color:inherit">
+            <span>PHIM ẢNH<br>FORUM</span><b style="font-size:26px;color:#ff526a">Ci</b>
+          </a>
+          <a class="small-card" href="laliga.html" style="text-decoration:none;color:inherit">
+            <span>ĐỐI TÁC<br>LALIGA</span><b style="font-size:25px;color:#ef384f">⚡</b>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button><span class="ico">🎁</span>Ưu Đãi</button>
+      <button><span class="ico">☎</span>Hỗ trợ</button>
+      <button class="money nav center" data-open="walletModal"><span class="ico nicon"><img src="data:image/png;base64,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" alt="Nạp rút tiền"></span>Nạp rút tiền</button>
+      <button><span class="ico">▤</span>Giao dịch</button>
+      <button data-open="loginModal"><span class="ico">♙</span>Tôi</button>
+    </nav>
+  </div>
+
+</div>
+
+<!-- LOGIN -->
+<div class="modal" id="loginModal">
+  <div class="modal-box">
+    <div class="modal-head"><span>Đăng nhập</span><button class="close" data-close>×</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Tên đăng nhập</label><input id="loginUsername" autocomplete="username" placeholder="Nhập tên đăng nhập"></div>
+      <div class="field"><label>Mật khẩu</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Nhập mật khẩu"></div>
+      <div class="login-tools">
+        <button type="button" class="forgot-link" id="openForgotPassword">Quên mật khẩu?</button>
+      </div>
+      <button class="primary" id="loginSubmit">Đăng nhập</button>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER -->
+<div class="modal" id="registerModal">
+  <div class="modal-box">
+    <div class="modal-head"><span>Đăng ký</span><button class="close" data-close>×</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Tên tài khoản</label><input id="registerUsername" autocomplete="username" placeholder="Tên tài khoản"></div>
+      <div class="field">
+        <label>Số điện thoại</label>
+        <div class="phone-wrap">
+          <div class="phone-prefix"><span aria-hidden="true">🇻🇳</span><span>+84</span></div>
+          <input id="registerPhone" type="tel" inputmode="numeric" autocomplete="tel-national"
+                 maxlength="10" placeholder="Nhập số điện thoại">
+        </div>
+      </div>
+      <div class="field"><label>Mật khẩu</label><input id="registerPassword" type="password" autocomplete="new-password" placeholder="Mật khẩu"></div>
+      <div class="field"><label>Xác nhận mật khẩu</label><input id="registerPassword2" type="password" autocomplete="new-password" placeholder="Nhập lại mật khẩu"></div>
+      <button class="primary" id="registerSubmit">Tạo tài khoản</button>
+    </div>
+  </div>
+</div>
+
+<!-- FORGOT PASSWORD -->
+<div class="modal" id="forgotModal">
+  <div class="modal-box">
+    <div class="modal-head"><span>Quên mật khẩu</span><button class="close" data-close>×</button></div>
+    <div class="modal-body">
+      <div class="help-text">
+        Nhập số điện thoại đã đăng ký. Hệ thống mẫu sẽ chuẩn hóa theo đầu số Việt Nam <b>🇻🇳 +84</b>.
+      </div>
+      <div class="field">
+        <label>Số điện thoại</label>
+        <div class="phone-wrap">
+          <div class="phone-prefix"><span aria-hidden="true">🇻🇳</span><span>+84</span></div>
+          <input id="forgotPhone" type="tel" inputmode="numeric" autocomplete="tel-national"
+                 maxlength="10" placeholder="Nhập số điện thoại">
+        </div>
+      </div>
+      <button class="primary" id="forgotSubmit">Tiếp tục</button>
+    </div>
+  </div>
+</div>
+
+<!-- WALLET -->
+<div class="modal" id="walletModal">
+  <div class="modal-box">
+    <div class="modal-head"><span>Nạp / Rút tiền</span><button class="close" data-close>×</button></div>
+    <div class="modal-body">
+      <div class="tabs">
+        <button class="active" data-wallet-tab="deposit">Nạp tiền</button>
+        <button data-wallet-tab="withdraw">Rút tiền</button>
+      </div>
+
+      <div id="depositPanel">
+        <div class="field">
+          <label>Số tiền nạp</label>
+          <input id="depositAmount" type="number" min="0" placeholder="Nhập số tiền">
+        </div>
+        <div class="money-quick">
+          <button data-amount="100000">100K</button>
+          <button data-amount="200000">200K</button>
+          <button data-amount="500000">500K</button>
+          <button data-amount="1000000">1M</button>
+          <button data-amount="2000000">2M</button>
+          <button data-amount="5000000">5M</button>
+        </div>
+        <button class="primary" onclick="alert('Đây là popup nạp tiền mẫu. Có thể tích hợp QR/VietQR sau.')">Tiếp tục nạp tiền</button>
+      </div>
+
+      <div id="withdrawPanel" style="display:none">
+        <div class="field"><label>Ngân hàng</label>
+          <select>
+            <option>Vietcombank</option><option>MB Bank</option><option>Techcombank</option>
+            <option>BIDV</option><option>ACB</option><option>TPBank</option>
+          </select>
+        </div>
+        <div class="field"><label>Số tài khoản</label><input placeholder="Nhập số tài khoản"></div>
+        <div class="field"><label>Số tiền rút</label><input type="number" min="0" placeholder="Nhập số tiền"></div>
+        <button class="primary" onclick="alert('Đây là popup rút tiền mẫu.')">Gửi yêu cầu rút</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   CẤU HÌNH NHANH
+   Đổi logo bằng cách thay đường dẫn dưới đây.
+   Ví dụ:
+   // Logo desktop đang dùng src công khai trực tiếp trong HTML
+   hoặc:
+   // Logo desktop đang dùng src công khai trực tiếp trong HTML
+========================================================= */
+// Logo desktop dùng src công khai trực tiếp trong HTML.
+const desktopLogo = document.getElementById("desktopLogo");
+if(desktopLogo){
+  desktopLogo.addEventListener("error",()=>{
+    desktopLogo.alt = "Logo";
+  });
+}
+
+/* =========================================================
+   BANNER DESKTOP - 3 GIÂY TỰ CHUYỂN 1 ẢNH
+   Chỉ cần sửa image và link ở đây.
+   Có thể thêm Link 4, Link 5... theo cùng cấu trúc.
+
+   image: đường dẫn ảnh
+   link : trang mở ra khi click banner
+========================================================= */
+/* ===== LINK ẢNH BANNER: DÁN LINK ẢNH CỦA BẠN VÀO image =====
+   Có thể dùng https://domain.com/anh.jpg
+   hoặc đường dẫn tương đối như assets/images/banner1.jpg
+*/
+const DESKTOP_BANNERS = [
+  {
+    image: "https://cdnv2.tgdd.vn/mwg-static/common/News/1586975/hinh-nen-may-tinh-4k-dep%20%2895%29.jpg",
+    link: ""
+  },
+  {
+    image: "https://cdnv2.tgdd.vn/mwg-static/common/News/1586975/hinh-nen-may-tinh-4k-dep%20%2839%29.jpg",
+    link: ""
+  },
+  {
+    image: "https://cdnv2.tgdd.vn/mwg-static/common/News/1586975/hinh-nen-may-tinh-4k-dep%20%2857%29.jpg",
+    link: ""
+  }
+];
+
+const BANNER_INTERVAL = 3000;
+
+const heroBannerImage = document.querySelector("#heroBannerImage");
+const heroBannerLink  = document.querySelector("#heroBannerLink");
+const heroDots        = document.querySelector("#heroDots");
+
+let heroBannerIndex = 0;
+let heroBannerTimer = null;
+
+function buildHeroDots(){
+  if(!heroDots) return;
+  heroDots.innerHTML = "";
+  DESKTOP_BANNERS.forEach((_, i)=>{
+    const dot = document.createElement("span");
+    dot.className = "hero-dot" + (i === 0 ? " active" : "");
+    heroDots.appendChild(dot);
+  });
+}
+
+function showHeroBanner(index){
+  if(!heroBannerImage || !heroBannerLink || !DESKTOP_BANNERS.length) return;
+
+  heroBannerIndex = (index + DESKTOP_BANNERS.length) % DESKTOP_BANNERS.length;
+  const banner = DESKTOP_BANNERS[heroBannerIndex];
+
+  heroBannerImage.classList.add("is-changing");
+
+  setTimeout(()=>{
+    heroBannerImage.src = banner.image;
+    heroBannerImage.alt = "Banner " + (heroBannerIndex + 1);
+    heroBannerLink.href = banner.link || "#";
+
+    document.querySelectorAll("#heroDots .hero-dot").forEach((dot, i)=>{
+      dot.classList.toggle("active", i === heroBannerIndex);
+    });
+
+    heroBannerImage.classList.remove("is-changing");
+  }, 140);
+}
+
+function startHeroSlider(){
+  if(heroBannerTimer) clearInterval(heroBannerTimer);
+  if(DESKTOP_BANNERS.length <= 1) return;
+
+  heroBannerTimer = setInterval(()=>{
+    showHeroBanner(heroBannerIndex + 1);
+  }, BANNER_INTERVAL);
+}
+
+buildHeroDots();
+showHeroBanner(0);
+startHeroSlider();
+
+/* Nếu ảnh lỗi, giữ khu vực banner nhưng không làm hỏng trang */
+if(heroBannerImage){
+  heroBannerImage.addEventListener("error",()=>{
+    heroBannerImage.alt = "Không tìm thấy ảnh banner";
+    heroBannerImage.classList.remove("is-changing");
+  });
+}
+
+/* Khóa viewport mobile theo kích thước thực */
+function setAppHeight(){
+  const vv = window.visualViewport;
+  const h = vv ? vv.height : window.innerHeight;
+  document.documentElement.style.setProperty("--vh", h + "px");
+}
+setAppHeight();
+window.addEventListener("resize", setAppHeight, {passive:true});
+window.addEventListener("orientationchange",()=>setTimeout(setAppHeight,120),{passive:true});
+if(window.visualViewport){
+  window.visualViewport.addEventListener("resize",setAppHeight,{passive:true});
+}
+
+/* Không cho kéo lệch trang mobile */
+document.addEventListener("touchmove",(e)=>{
+  if(window.innerWidth<=768 && !e.target.closest("input, textarea, select, .modal-box")){
+    e.preventDefault();
+  }
+},{passive:false});
+
+let lastTouch=0;
+document.addEventListener("touchend",(e)=>{
+  const now=Date.now();
+  if(now-lastTouch<=300) e.preventDefault();
+  lastTouch=now;
+},{passive:false});
+
+["gesturestart","gesturechange","gestureend"].forEach(evt=>{
+  document.addEventListener(evt,e=>e.preventDefault(),{passive:false});
+});
+
+/* Thanh thông báo Desktop: chỉ hiển thị, chặn cứng mọi thao tác click/tap */
+const desktopNotice = document.querySelector("#app > div.desktop > div.notice");
+if(desktopNotice){
+  ["click","dblclick","mousedown","mouseup","touchstart","touchend","contextmenu"].forEach(type=>{
+    desktopNotice.addEventListener(type, e=>{
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      return false;
+    }, true);
+  });
+}
+
+/* Popup */
+document.querySelectorAll("[data-open]").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const modal=document.getElementById(btn.dataset.open);
+    if(modal) modal.classList.add("show");
+  });
+});
+document.querySelectorAll("[data-close]").forEach(btn=>{
+  btn.addEventListener("click",()=>btn.closest(".modal").classList.remove("show"));
+});
+document.querySelectorAll(".modal").forEach(modal=>{
+  modal.addEventListener("click",(e)=>{
+    if(e.target===modal) modal.classList.remove("show");
+  });
+});
+
+/* Wallet tab */
+document.querySelectorAll("[data-wallet-tab]").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll("[data-wallet-tab]").forEach(x=>x.classList.remove("active"));
+    btn.classList.add("active");
+    const dep = btn.dataset.walletTab==="deposit";
+    document.getElementById("depositPanel").style.display=dep?"block":"none";
+    document.getElementById("withdrawPanel").style.display=dep?"none":"block";
+  });
+});
+
+/* Chọn nhanh số tiền */
+document.querySelectorAll("[data-amount]").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.getElementById("depositAmount").value=btn.dataset.amount;
+  });
+});
+
+/* Đăng nhập / Đăng ký - chạy front-end để TEST */
+const loginSubmit = document.getElementById("loginSubmit");
+if(loginSubmit){
+  loginSubmit.addEventListener("click",()=>{
+    const username = (document.getElementById("loginUsername")?.value || "").trim();
+    const password = document.getElementById("loginPassword")?.value || "";
+
+    if(!username){
+      alert("Vui lòng nhập tên đăng nhập.");
+      document.getElementById("loginUsername")?.focus();
+      return;
+    }
+    if(!password){
+      alert("Vui lòng nhập mật khẩu.");
+      document.getElementById("loginPassword")?.focus();
+      return;
+    }
+
+    alert("Đăng nhập TEST thành công\nTài khoản: " + username);
+    document.getElementById("loginModal")?.classList.remove("show");
+  });
+}
+
+const registerSubmit = document.getElementById("registerSubmit");
+if(registerSubmit){
+  registerSubmit.addEventListener("click",()=>{
+    const username = (document.getElementById("registerUsername")?.value || "").trim();
+    const phoneInput = document.getElementById("registerPhone");
+    const password = document.getElementById("registerPassword")?.value || "";
+    const password2 = document.getElementById("registerPassword2")?.value || "";
+    let national = (phoneInput?.value || "").replace(/\D/g,"");
+
+    if(!username){
+      alert("Vui lòng nhập tên tài khoản.");
+      document.getElementById("registerUsername")?.focus();
+      return;
+    }
+
+    if(national.startsWith("0")) national = national.slice(1);
+    if(national.length < 9 || national.length > 10){
+      alert("Vui lòng nhập số điện thoại Việt Nam hợp lệ.");
+      phoneInput?.focus();
+      return;
+    }
+
+    if(password.length < 4){
+      alert("Mật khẩu phải có ít nhất 4 ký tự.");
+      document.getElementById("registerPassword")?.focus();
+      return;
+    }
+
+    if(password !== password2){
+      alert("Mật khẩu xác nhận không khớp.");
+      document.getElementById("registerPassword2")?.focus();
+      return;
+    }
+
+    const fullPhone = "+84" + national;
+    alert(
+      "Đăng ký TEST thành công\n" +
+      "Tài khoản: " + username + "\n" +
+      "Số điện thoại: " + fullPhone
+    );
+    document.getElementById("registerModal")?.classList.remove("show");
+  });
+}
+
+/* Quên mật khẩu */
+const openForgotPassword = document.getElementById("openForgotPassword");
+if(openForgotPassword){
+  openForgotPassword.addEventListener("click",()=>{
+    document.getElementById("loginModal").classList.remove("show");
+    document.getElementById("forgotModal").classList.add("show");
+  });
+}
+
+const forgotSubmit = document.getElementById("forgotSubmit");
+if(forgotSubmit){
+  forgotSubmit.addEventListener("click",()=>{
+    const phoneInput = document.getElementById("forgotPhone");
+    let national = (phoneInput.value || "").replace(/\D/g,"");
+    if(national.startsWith("0")) national = national.slice(1);
+
+    if(national.length < 9 || national.length > 10){
+      alert("Vui lòng nhập số điện thoại Việt Nam hợp lệ.");
+      phoneInput.focus();
+      return;
+    }
+
+    const fullPhone = "+84" + national;
+    alert(
+      "Yêu cầu khôi phục mật khẩu mẫu\nSố điện thoại: " + fullPhone +
+      "\n\nKhi nối backend, bạn có thể gửi OTP/SMS ở bước này."
+    );
+  });
+}
+
+/* Đồng hồ realtime Asia/Ho_Chi_Minh - GMT+7 */
+function updateClock(){
+  const clock = document.getElementById("desktopClock");
+  if(!clock) return;
+
+  const formatter = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Ho_Chi_Minh",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  });
+
+  clock.textContent = formatter.format(new Date()).replace(",", "") + " GMT+7";
+}
+updateClock();
+window.setInterval(updateClock, 1000);
+</script>
+</body>
+</html>
